@@ -1,6 +1,7 @@
 import { CssBaseline } from "@mui/material";
 import { Route, Routes } from "react-router-dom";
 
+import "./styles.css";
 import {
   Actors,
   MovieInformation,
@@ -11,11 +12,11 @@ import {
 
 function App() {
   return (
-    <div style={{ display: "flex", height: "100%" }}>
+    <div className="root">
       <CssBaseline />
       <NavBar />
-      <main style={{ flexGrow: "1", padding: "2em" }}>
-        <div style={{ height: "70px" }} />
+      <main className="content">
+        <div className="toolbar" />
         <Routes>
           <Route path="/movie/:id" element={<MovieInformation />} />
           <Route path="/actors/:id" element={<Actors />} />
