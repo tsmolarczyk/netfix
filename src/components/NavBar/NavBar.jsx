@@ -17,11 +17,15 @@ import {
 import { Link } from "react-router-dom";
 import { useTheme } from "@emotion/react";
 
+import { useState } from "react";
+
 const NavBar = () => {
+  const [mobileOpen, setMobileOpen] = useState(false);
   console.log("NavBar");
   const isMobile = useMediaQuery("(max-width:600px)");
   const theme = useTheme();
   const isAuthenticated = true;
+
   return (
     <>
       <AppBar position="fixed">
@@ -80,9 +84,27 @@ const NavBar = () => {
               </Button>
             )}
           </div>
-          { isMobile && "Search..."}
+          {isMobile && "Search..."}
         </Toolbar>
       </AppBar>
+      <div>
+        <nav className="">
+          {isMobile ? (
+            <Drawer
+              variant="temporary"
+              anchor="right"
+              open={mobileOpen}
+              className="drawerBackground"
+              classes={{ paper: classes.drawerPaper }}
+              ModalProps={{ keepMounted: true }}
+            >
+              <Sidebar setMobileOpen={setMobileOpen} />
+            </Drawer>
+          ) : (
+            <Drawer></Drawer>
+          )}
+        </nav>
+      </div>
     </>
   );
 };
