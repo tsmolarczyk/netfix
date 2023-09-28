@@ -12,11 +12,11 @@ import {
 
 function App() {
   return (
-    <div className="root">
+    <div style={{ display: "flex", height: "100%" }}>
       <CssBaseline />
       <NavBar />
-      <main className="content">
-        <div className="toolbar" />
+      <main style={{ flexGrow: "1", padding: "2em" }}>
+        <div style={{ height: "70px" }} />
         <Routes>
           <Route path="/movie/:id" element={<MovieInformation />} />
           <Route path="/actors/:id" element={<Actors />} />

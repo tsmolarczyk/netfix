@@ -2,7 +2,7 @@ import React from "react";
 
 const Movies = () => {
   console.log("Movies");
-  return <div>Movies</div>;
+  return <div>Movieasdasds</div>;
 };
 
 export default Movies;

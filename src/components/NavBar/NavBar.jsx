@@ -16,8 +16,8 @@ import {
 } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import { useTheme } from "@emotion/react";
-
 import { useState } from "react";
+import { Sidebar } from "..";
 
 const NavBar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -30,7 +30,6 @@ const NavBar = () => {
     <>
       <AppBar position="fixed">
         <Toolbar
-          className="toolbar"
           sx={theme => ({
             height: "80px",
             display: "flex",
@@ -72,7 +71,12 @@ const NavBar = () => {
                 color="inherit"
                 component={Link}
                 to={`/profile/123`}
-                sx={{}}
+                sx={{
+                  "&:hover": {
+                    color: "white !important",
+                    textDecoration: "none"
+                  }
+                }}
                 onClick={() => {}}
               >
                 {!isMobile && <>My Movies &nbsp;</>}
@@ -87,21 +91,41 @@ const NavBar = () => {
           {isMobile && "Search..."}
         </Toolbar>
       </AppBar>
-      <div>
-        <nav className="">
+      <div style={{ marginLeft: isMobile ? "0px" : "240px" }}>
+        <nav
+          sx={{
+            [theme.breakpoints.up("sm")]: {
+              width: 240,
+              flexShrink: 0
+            }
+          }}
+        >
           {isMobile ? (
             <Drawer
               variant="temporary"
-              anchor="right"
+              anchor="left"
               open={mobileOpen}
-              className="drawerBackground"
-              classes={{ paper: classes.drawerPaper }}
+              sx={{
+                "& .MuiDrawer-paper": {
+                  width: 240
+                }
+              }}
               ModalProps={{ keepMounted: true }}
             >
               <Sidebar setMobileOpen={setMobileOpen} />
             </Drawer>
           ) : (
-            <Drawer></Drawer>
+            <Drawer
+              sx={{
+                "& .MuiDrawer-paper": {
+                  width: 240
+                }
+              }}
+              variant="permanent"
+              open
+            >
+              <Sidebar setMobileOpen={setMobileOpen} />
+            </Drawer>
           )}
         </nav>
       </div>
