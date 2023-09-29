@@ -21,7 +21,6 @@ import { Sidebar } from "..";
 
 const NavBar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  console.log("NavBar");
   const isMobile = useMediaQuery("(max-width:600px)");
   const theme = useTheme();
   const isAuthenticated = true;
@@ -32,6 +31,7 @@ const NavBar = () => {
         <Toolbar
           sx={theme => ({
             height: "80px",
+            bgcolor: "#E50914",
             display: "flex",
             justifyContent: "space-between",
             ml: "240px",
@@ -46,7 +46,7 @@ const NavBar = () => {
               color="inherit"
               edge="start"
               style={{ outline: "none" }}
-              onClick={() => {}}
+              onClick={() => setMobileOpen(prevMobileOpen => !prevMobileOpen)}
               sx={theme => ({
                 mr: theme.spacing(2),
                 [theme.breakpoints.up("sm")]: {
@@ -103,8 +103,9 @@ const NavBar = () => {
           {isMobile ? (
             <Drawer
               variant="temporary"
-              anchor="left"
+              anchor="right"
               open={mobileOpen}
+              onClose={() => setMobileOpen(prevMobileOpen => !prevMobileOpen)}
               sx={{
                 "& .MuiDrawer-paper": {
                   width: 240
