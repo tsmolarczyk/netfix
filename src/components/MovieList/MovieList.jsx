@@ -10,7 +10,7 @@ const MovieList = ({ movies }) => {
       sx={{
         display: "flex",
         flexWrap: "wrap",
-        justifyContent: "space-between",
+        justifyContent: "left",
         overflow: "auto",
         [theme.breakpoints.down("sm")]: {
           justifyContent: "center"

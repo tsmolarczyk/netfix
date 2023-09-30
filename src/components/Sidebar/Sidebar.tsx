@@ -27,11 +27,12 @@ const categories = [
 ];
 
 const Sidebar = ({ setMobileOpen }) => {
-  const theme = useTheme();
+  const { genreIdOrCategoryName } = useSelector(
+    state => state.currentGenreOrCategory
+  );
   const { data, isFetching } = useGetGenresQuery();
+  const theme = useTheme();
   const dispatch = useDispatch();
-
-  console.log(data);
 
   return (
     <>
