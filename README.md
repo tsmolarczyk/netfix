@@ -37,6 +37,7 @@ yarn dev
 
 ## Features
 
+- Authentication by TMDB API
 - Fetching movie data from TMDB API
 - Searching movies by genre
 - Displaying popular movies
