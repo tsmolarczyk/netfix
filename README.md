@@ -1,7 +1,7 @@
 # Project Name: Netflix Clone Movies based on TMDB API
 
 ## Project Description
-This project is a Netflix clone built with Vite and React. It uses Redux for state management and allows browsing movies, searching by genres, popularity, and cast.
+This project is a Netflix clone built with Vite and React. Components are mostly based on Material UI. It uses Redux for state management and allows browsing movies, searching by genres, popularity, and cast.
 
 https://6519801f90379f5bd3303712--snazzy-syrniki-d05b4a.netlify.app/
 
