@@ -14,17 +14,46 @@ import {
   Brightness4,
   Brightness7
 } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser, userSelector } from "../../features/auth";
 import { Link } from "react-router-dom";
 import { useTheme } from "@emotion/react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Search, Sidebar } from "..";
-import { fetchToken } from "../../utils";
+import { fetchToken, createSessionId, moviesApi } from "../../utils";
 
 const NavBar = () => {
+  const { isAuthenticated, user } = useSelector(userSelector);
   const [mobileOpen, setMobileOpen] = useState(false);
   const isMobile = useMediaQuery("(max-width:600px)");
   const theme = useTheme();
-  const isAuthenticated = true;
+  const dispatch = useDispatch();
+
+  const token = localStorage.getItem("request_token");
+  const sessionIdFromLocalStorage = localStorage.getItem("session_id");
+
+  useEffect(() => {
+    const logInUser = async () => {
+      if (token) {
+        if (sessionIdFromLocalStorage) {
+          console.log(1);
+          const { data: userData } = await moviesApi.get(
+            `/account?session_id=${sessionIdFromLocalStorage}`
+          );
+          dispatch(setUser(userData));
+        } else {
+          console.log(2);
+          const sessionId = await createSessionId();
+          const { data: userData } = await moviesApi.get(
+            `/account?session_id=${sessionId}`
+          );
+
+          dispatch(setUser(userData));
+        }
+      }
+    };
+    logInUser();
+  }, [token]);
 
   return (
     <>
@@ -71,7 +100,7 @@ const NavBar = () => {
               <Button
                 color="inherit"
                 component={Link}
-                to={`/profile/123`}
+                to={`/profile/${user.id}`}
                 sx={{
                   "&:hover": {
                     color: "white !important",
