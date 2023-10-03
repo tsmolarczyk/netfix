@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import {
   Modal,
@@ -27,15 +27,26 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 
 import genreIcons from "../../assets/genres";
-import { useGetMovieQuery } from "../../services/TMDB";
+import { MovieList } from "..";
+import {
+  useGetMovieQuery,
+  useGetRecommendationsQuery
+} from "../../services/TMDB";
 import { selectGenreOrCategory } from "../../features/currentGenreOrCategory";
 
 const MovieInformation = () => {
   const theme = useTheme();
   const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const [open, setOpen] = useState(false);
   const { id } = useParams();
   const { data, isFetching, error } = useGetMovieQuery(id);
   const dispatch = useDispatch();
+
+  const { data: recommendations, isFetching: isRecommendationsFetching } =
+    useGetRecommendationsQuery({
+      list: "/recommendations",
+      movie_id: id
+    });
 
   const isMovieFavorited = true;
   const isMovieWatchlisted = false;
@@ -218,7 +229,7 @@ const MovieInformation = () => {
             sx={{
               display: "flex",
               justifyContent: "space-between",
-              widowsth: "100%",
+              width: "100%",
               [theme.breakpoints.down("sm")]: {
                 flexDirection: "column"
               }
@@ -242,7 +253,7 @@ const MovieInformation = () => {
                 <Button
                   target="_blank"
                   rel="noopener nooreferrer"
-                  href="{data?.homepage}"
+                  href={data?.homepage}
                   endIcon={<Language />}
                 >
                   Website
@@ -255,7 +266,13 @@ const MovieInformation = () => {
                 >
                   IMDB
                 </Button>
-                <Button onClick={() => {}} href="#" endIcon={<Theaters />}>
+                <Button
+                  onClick={() => {
+                    setOpen(true);
+                  }}
+                  href="#"
+                  endIcon={<Theaters />}
+                >
                   Trailer
                 </Button>
               </ButtonGroup>
@@ -268,7 +285,7 @@ const MovieInformation = () => {
               sx={{
                 display: "flex",
                 justifyContent: "space-between",
-                widowsth: "100%",
+                width: "100%",
                 [theme.breakpoints.down("sm")]: {
                   flexDirection: "column"
                 }
@@ -308,6 +325,47 @@ const MovieInformation = () => {
           </Box>
         </Grid>
       </Grid>
+      <Box marginTop="5rem" width="100%">
+        <Typography variant="h3" gutterBottom align="center">
+          You might also like
+        </Typography>
+        {/* Loop through recommendded movies */}
+        {recommendations ? (
+          <MovieList movies={recommendations} numberOfMovies={12} />
+        ) : (
+          <Box>Sorry, nothing was found.</Box>
+        )}
+      </Box>
+      <Modal
+        closeAfterTransition
+        sx={{
+          display: " flex",
+          alignItems: "center",
+          justifyContent: "center"
+        }}
+        open={open}
+        onClose={() => {
+          setOpen(false);
+        }}
+      >
+        {data?.videos?.results?.length > 0 && (
+          <iframe
+            autoPlay
+            style={{
+              width: "50%",
+              height: "50%",
+              [theme.breakpoints.down("sm")]: {
+                width: "90%",
+                height: "90%"
+              }
+            }}
+            frameBorder="0"
+            title="Trailer"
+            src={`https://www.youtube.com/embed/${data.videos.results[0].key}`}
+            allow="autoplay"
+          />
+        )}
+      </Modal>
     </Grid>
   );
 };

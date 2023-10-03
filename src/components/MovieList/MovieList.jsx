@@ -2,7 +2,7 @@ import { Grid } from "@mui/material";
 import { useTheme } from "@mui/material";
 import { Movie } from "..";
 
-const MovieList = ({ movies }) => {
+const MovieList = ({ movies, numberOfMovies }) => {
   const theme = useTheme();
   return (
     <Grid
@@ -17,7 +17,7 @@ const MovieList = ({ movies }) => {
         }
       }}
     >
-      {movies.results.map((movie, i) => (
+      {movies.results.slice(0, numberOfMovies).map((movie, i) => (
         <Movie key={i} movie={movie} i={i} />
       ))}
     </Grid>
