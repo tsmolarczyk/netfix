@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 const Movie = ({ movie, i }) => {
   const theme = useTheme();
 
+  console.log("movie", movie);
+
   return (
     <Grid item xs={12} sm={6} md={4} lg={3} xl={2} sx={{ padding: "10px" }}>
       <Grow in key={i} timeout={(i + 1) * 250}>

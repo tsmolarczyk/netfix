@@ -75,7 +75,8 @@ const MovieInformation = () => {
         margin: "0 auto",
         width: "100%",
         marginBottom: "30px",
-        height: "auto"
+        height: "auto",
+        display: "flex"
       }
     : { width: "80%" };
 
@@ -92,7 +93,13 @@ const MovieInformation = () => {
         }
       }}
     >
-      <Grid item sm={12} lg={4} align="center">
+      <Grid
+        item
+        sm={12}
+        lg={4}
+        sx={{ display: "flex", marginBottom: "30px" }}
+        align="center"
+      >
         <img
           src={`https://image.tmdb.org/t/p/w500/${data?.poster_path}`}
           alt={data?.title}
@@ -130,10 +137,7 @@ const MovieInformation = () => {
             </Typography>
           </Box>
           <Typography variant="h6" align="center" gutterBottom>
-            {data?.runtime}min
-            {data?.spoken_languages.length > 0
-              ? `/ ${data?.spoken_languages[0].name}`
-              : ""}
+            {data?.runtime}min | Language: {data?.spoken_languages[0].name}
           </Typography>
         </Grid>
 

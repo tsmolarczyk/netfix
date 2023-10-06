@@ -15,6 +15,9 @@ import Pagination from "../Pagination/Pagination";
 
 const Movies = () => {
   const [page, setPage] = useState(1);
+  const lg = useMediaQuery(theme => theme.breakpoints.only("lg"));
+
+  const numberOfMovies = lg ? 16 : 18;
   const { genreIdOrCategoryName, searchQuery } = useSelector(
     state => state.currentGenreOrCategory
   );
@@ -56,7 +59,7 @@ const Movies = () => {
 
   return (
     <div>
-      <MovieList movies={data} />
+      <MovieList movies={data} numberOfMovies={numberOfMovies} />
       <Pagination
         currentPage={page}
         setPage={setPage}
