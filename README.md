@@ -3,8 +3,7 @@
 ## Project Description
 This project is a Netflix clone built with Vite and React. Components are mostly based on Material UI. It uses Redux for state management and allows browsing movies, searching by genres, popularity, and cast.
 
-https://6519801f90379f5bd3303712--snazzy-syrniki-d05b4a.netlify.app/
-
+https://netflix-e6ce5r9jb-tsmolarczyk.vercel.app/
 ## Requirements
 
 - Node.js
